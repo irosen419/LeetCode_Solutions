@@ -11,23 +11,12 @@
  * @return {boolean}
  */
 var isUnivalTree = function(root) {
-    if (!root.left && !root.right) return true
-    let value = root.val
-    let queue = [root]
-    let node
+    if (!root) return true
     
-    while(queue.length) {
-        node = queue.shift()
-        if (node && node.val !== value) {
-            return false
-        }
-        
-        if (node.left) {
-            queue.push(node.left)
-        }
-        
-        if (node.right) {
-            queue.push(node.right)
-        }
+    if ((root.left && root.left.val !== root.val) 
+        || (root.right && root.right.val !== root.val)) {
+        return false
     }
     
+    return isUnivalTree(root.left) && isUnivalTree(root.right)
+};
