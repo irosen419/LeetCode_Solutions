@@ -12,20 +12,15 @@
  * @return {boolean}
  */
 var isSameTree = function(p, q) {
-    if (!p && !q) return true
-    if (!p && q || !q && p) return false
     
-    let pVisited = bfs(p)
-    let qVisited = bfs(q)
-    console.log(pVisited, qVisited)
-    for (let i = 0; i < pVisited.length; i++) {
-        if (pVisited[i] !== qVisited[i]) {
-            return false
-        }
+    if (!p && !q) {
+        return true
     }
-    return true
+    if (p && !q || !p && q) {
+        return false
+    }
+    
+    
+    
+    return p.val === q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
 };
-​
-var bfs = function(root) {
-    let queue = []
-    let visited = []
