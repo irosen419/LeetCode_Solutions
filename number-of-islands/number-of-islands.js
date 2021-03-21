@@ -4,56 +4,29 @@
  */
 var numIslands = function(grid) {
     let count = 0
-    let surrounding = [[-1,0], [1, 0], [0, 1], [0, -1]] 
-//     for (let i = 0; i < grid.length; i++) {
-//         for (let j = 0; j < grid[i].length; j++) {
-//             let plot = grid[i][j]
-//             if (plot === '1') {
-//                 count++
-//                 bfs([[i, j]]) 
-//             }
-//         }
-//     }
-//     return count
-    
-//     function bfs(queue) {
-
-//         while(queue.length) {
-//             let [row, column] = queue.shift()
-//             if (row < 0 || column < 0 || row >= grid.length || column >= grid[0].length || grid[row][column] === '0') {
-//                 continue
-//             }
-//             grid[row][column] = '0'
-            
-//             for (const plot of surrounding) {
-//                 console.log([row, column], [row+plot[0], column+plot[1]])
-//                 queue.push([row+plot[0], column+plot[1]])
-//             }
-//         }
-//     }
+    let compass = [[-1, 0], [0, -1], [0, 1], [1, 0]]
     
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
-            let plot = grid[i][j]
-            if (plot === '1') {
+            if (grid[i][j] === '1') {
                 count++
-                dfs([i, j]) 
+                bfs(i, j)
             }
         }
     }
+    
     return count
     
-    function dfs(coords) {
-        let [row, column] = coords
-        if (row < 0 || column < 0 || row >= grid.length || column >= grid[0].length || grid[row][column] === '0') {
+    function bfs(row, col) {
+        
+        if (row < 0 || col < 0 || row >= grid.length || col >= grid[0].length || grid[row][col] === '0') {
             return
         }
-        grid[row][column] = '0'
-
-        for (const plot of surrounding) {
-            console.log([row, column], [row+plot[0], column+plot[1]])
-            dfs([row+plot[0], column+plot[1]])
+        
+        grid[row][col] = '0'
+        
+        for (const dir of compass) {
+            bfs(row + dir[0], col + dir[1])
         }
     }
-
 };
