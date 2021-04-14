@@ -17,34 +17,62 @@ var trap = function(height) {
     // repeat from height.length - 1 --> max index
     
     // edge cases
-    if (height.length < 3) return 0
+//     if (height.length < 3) return 0
     
-    let maxHeight = 0, maxIndex = 0
+//     let maxHeight = 0, maxIndex = 0
     
-    for (let i = 0; i < height.length; i++) {
-        if (height[i] > maxHeight) {
-            maxHeight = height[i]
-            maxIndex = i
-        }
-    }
+//     for (let i = 0; i < height.length; i++) {
+//         if (height[i] > maxHeight) {
+//             maxHeight = height[i]
+//             maxIndex = i
+//         }
+//     }
 
-    let total = 0, currMax = height[0]
+//     let total = 0, currMax = height[0]
     
-    for (let i = 0; i < maxIndex; i++) {
-        if (currMax < height[i]) {
-            currMax = height[i]
-        }
-        total += currMax - height[i]
-    }
+//     for (let i = 0; i < maxIndex; i++) {
+//         if (currMax < height[i]) {
+//             currMax = height[i]
+//         }
+//         total += currMax - height[i]
+//     }
 
-    currMax = height[height.length - 1]
+//     currMax = height[height.length - 1]
     
-    for (let i = height.length - 1; i > maxIndex; i--) {
-        if (currMax < height[i]) {
-            currMax = height[i]
+//     for (let i = height.length - 1; i > maxIndex; i--) {
+//         if (currMax < height[i]) {
+//             currMax = height[i]
+//         }
+//         total += currMax - height[i]
+//     }
+    
+//     return total
+    
+    let start = 0
+    let end = height.length - 1
+    
+    let currHeight = 0
+    let sum = 0
+    
+    while(start < end) {
+        let leftPoint = height[start]
+        let rightPoint = height[end]
+        
+        if (leftPoint > currHeight && rightPoint > currHeight) {
+            currHeight = Math.min(leftPoint, rightPoint)
         }
-        total += currMax - height[i]
+        
+        if (leftPoint <= currHeight) {
+            sum += currHeight - leftPoint
+            start++
+            continue
+        }
+        
+        if (rightPoint <= currHeight) {
+            sum += currHeight - rightPoint
+            end--
+        }
     }
     
-    return total
+    return sum
 };
