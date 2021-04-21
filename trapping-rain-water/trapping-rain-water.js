@@ -47,32 +47,39 @@ var trap = function(height) {
 //     }
     
 //     return total
+
+    if (height.length < 3) return 0
     
-    let start = 0
-    let end = height.length - 1
+    let maxIndex = 0
+    let maxVal = 0
     
-    let currHeight = 0
-    let sum = 0
-    
-    while(start < end) {
-        let leftPoint = height[start]
-        let rightPoint = height[end]
-        
-        if (leftPoint > currHeight && rightPoint > currHeight) {
-            currHeight = Math.min(leftPoint, rightPoint)
-        }
-        
-        if (leftPoint <= currHeight) {
-            sum += currHeight - leftPoint
-            start++
-            continue
-        }
-        
-        if (rightPoint <= currHeight) {
-            sum += currHeight - rightPoint
-            end--
+    for (let i = 0; i < height.length; i++) {
+        if (height[i] >= maxVal) {
+            maxVal = height[i]
+            maxIndex = i
         }
     }
     
-    return sum
+    let total = 0
+    let wallHeight = 0
+    
+    for (let i = 0; i < maxIndex; i++) {
+        if (wallHeight < height[i]) {
+            wallHeight = height[i]
+        }
+        
+        total += wallHeight - height[i]
+    }
+    
+    wallHeight = 0
+    
+    for (let i = height.length - 1; i > maxIndex; i--) {
+        if (wallHeight < height[i]) {
+            wallHeight = height[i]
+        }
+        
+        total += wallHeight - height[i]
+    }
+    
+    return total
 };
