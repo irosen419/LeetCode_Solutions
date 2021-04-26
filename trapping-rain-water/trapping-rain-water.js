@@ -2,7 +2,7 @@
  * @param {number[]} height
  * @return {number}
  */
-var trap = function(height) {
+var trap = function(array) {
     // can you have negative heights?
     // what is the min/max length of the array?
     // can we assume that water will be trapped only after we have a first official 'height'?
@@ -48,37 +48,33 @@ var trap = function(height) {
     
 //     return total
 
-    if (height.length < 3) return 0
+    if (array.length < 3) return 0
     
-    let maxIndex = 0
-    let maxVal = 0
-    
-    for (let i = 0; i < height.length; i++) {
-        if (height[i] >= maxVal) {
-            maxVal = height[i]
-            maxIndex = i
-        }
-    }
+    let l = 0
+    let r = array.length - 1
     
     let total = 0
-    let wallHeight = 0
+    let wallHeight = 0 
     
-    for (let i = 0; i < maxIndex; i++) {
-        if (wallHeight < height[i]) {
-            wallHeight = height[i]
+    while(l < r) {
+        let left = array[l]
+        let right = array[r]
+        
+        if (left > wallHeight && right > wallHeight) {
+            wallHeight = Math.min(left, right)
         }
         
-        total += wallHeight - height[i]
-    }
-    
-    wallHeight = 0
-    
-    for (let i = height.length - 1; i > maxIndex; i--) {
-        if (wallHeight < height[i]) {
-            wallHeight = height[i]
+        if (left <= wallHeight) {
+            total += wallHeight - left
+            l++
+            continue
         }
         
-        total += wallHeight - height[i]
+        if (right <= wallHeight) {
+            total += wallHeight - right
+            r--
+        }
+
     }
     
     return total
