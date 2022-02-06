@@ -20,6 +20,5 @@ var removeDuplicates = function(nums) {
         
     }
     
-    console.log(seen, nums)
     return lastUsed
 };
