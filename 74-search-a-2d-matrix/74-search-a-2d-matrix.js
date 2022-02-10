@@ -5,8 +5,10 @@
  */
 var searchMatrix = function(matrix, target) {
     for (let i = 0; i < matrix.length; i++) {
-        if (isInRange(matrix[i], target) && binarySearch(matrix[i], target)) {
-            return true
+        if (isInRange(matrix[i], target)){
+            if (binarySearch(matrix[i], target)) {
+                return true
+            }
         }
     }
     
