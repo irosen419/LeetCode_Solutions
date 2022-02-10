@@ -5,8 +5,7 @@
  */
 var searchMatrix = function(matrix, target) {
     for (let i = 0; i < matrix.length; i++) {
-        
-        if (binarySearch(matrix[i], target)) {
+        if (isInRange(matrix[i], target) && binarySearch(matrix[i], target)) {
             return true
         }
     }
@@ -30,4 +29,8 @@ function binarySearch(array, target) {
         }
     }
     return false
+}
+
+function isInRange(array, target) {
+    return target <= array.at(-1);
 }
