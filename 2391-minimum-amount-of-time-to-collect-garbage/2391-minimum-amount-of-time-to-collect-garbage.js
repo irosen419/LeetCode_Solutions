@@ -30,8 +30,6 @@ var garbageCollection = function(garbage, travel) {
         }
     }
     
-    console.log(G, M, P, lastIndices)
-    
     for (let i = 0; i < lastIndices.length; i++) {
         let j = 0
         while (j < lastIndices[i]) {
